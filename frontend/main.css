@@ -1,26 +1,67 @@
 #background-cover-image {
     width: 100%;
-    position: fixed;
     top: 0;
-    background-image: linear-gradient(0deg, var(--main-bg) 0, transparent 200%),
+    background-image: linear-gradient(
+            0deg,
+            var(--main-bg) 20%,
+            transparent 200%
+        ),
         var(--bg-image);
     background-size: cover;
-    background-position: 0 100%;
+    background-position: center 10%;
     transform: scale(1.1);
-    filter: blur(8px);
-    height: 200vh;
-} 
+    filter: blur(2px);
+    height: 150vh;
+}
 
 #dummy {
-    height: 200vh;
+    height: 100vh;
     width: 10px;
 }
-#text {
-    color: white;
-    font-size: 50px;
+
+@font-face {
+    font-family: "NerdFontsSymbols Nerd Font";
+    /* @TODO you need to adjust the path to the font: */
+    src: url("file:///usr/share/fonts/TTF/Symbols-2048-em\ Nerd\ Font\ Complete.ttf")
+        format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
+
+.nf {
+    font-family: "NerdFontsSymbols Nerd Font";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+#nav-container {
+    position: sticky;
+    top:0;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    background-color: var(--main-bg-light);
+    color: white;
+    font-size: 17px;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 0 50px 1px rgba(0, 0, 0, 0.698);
+}
+.nav-icon {
+    font-size: 40px;
+}
+
 * {
     --main-bg: #121212;
+    --main-bg-light: #1b1b1b;
+    --accent-primary: rgb(180, 180, 180);
 }
 body {
     background-color: var(--main-bg);
@@ -41,20 +82,33 @@ body {
     perspective-origin: 0%;
     display: flex;
 }
+#paralax::-webkit-scrollbar-button{
+    background: transparent;
+}
+#paralax::-webkit-scrollbar {
+    background: transparent;
+    width: 8px;
+}
+#paralax::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color:var(--main-bg-light);
+    width: 5px;
+}
 
 #foreground {
-    margin-top: auto;
-    margin-bottom: 50px;
+    padding-top: 50px;
     transform-origin: 0;
-    transform: translateZ(calc(var(--distance) * 1px)) scale(calc(calc(var(--perspective) - var(--distance)) / var(--perspective)));
+    transform: translateZ(calc(var(--distance) * 1px))
+        scale(
+            calc(
+                calc(var(--perspective) - var(--distance)) / var(--perspective)
+            )
+        );
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
     width: 100%;
-    z-index: 100;
 }
 #background {
-    z-index: -100;
     position: absolute;
     top: 0;
     left: 0;
