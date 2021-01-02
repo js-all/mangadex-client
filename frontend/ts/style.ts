@@ -7,6 +7,8 @@ export {
 function setStyleEventListeners() {
     const navBar = document.querySelector("#nav-container") as HTMLElement;
     const paralax = document.querySelector("#paralax") as HTMLElement;
+    const description = document.querySelector("#description") as HTMLElement;
+    const descriptionAChilds = document.querySelectorAll("#description a") as NodeListOf<HTMLElement>;
     const onParalaxScroll = () => {
         let navbarBGColor = getComputedStyle(navBar).getPropertyValue('background-color')
         //change to rgba if not and remove spaces
@@ -18,4 +20,8 @@ function setStyleEventListeners() {
     }
     onParalaxScroll();
     paralax.addEventListener('scroll', onParalaxScroll);
+    description.addEventListener("click", () => {
+        description.classList.toggle("closed")
+    });
+    descriptionAChilds.forEach(v => v.addEventListener("click", e => {e.stopPropagation()}, false))
 }

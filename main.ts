@@ -1,7 +1,8 @@
 import { app, BrowserWindow, ipcMain } from "electron";
-import { Mangadex, SearchQuery } from "mangadex-api";
+import { Mangadex, MRequestOptions, SearchQuery } from "mangadex-api";
 import fs from "fs";
 import path from "path";
+import { PartialChaptersParams } from "mangadex-api/dist/api/base";
 
 let loggedIn = false;
 const client = new Mangadex();
@@ -16,6 +17,10 @@ function createWindow() {
         frame: false,
     });
     win.loadFile("./frontend/index.html");
+    win.webContents.on('new-window', function(e, url) {
+        e.preventDefault();
+        require('electron').shell.openExternal(url);
+      });
 }
 
 app.whenReady().then(createWindow);
@@ -65,6 +70,8 @@ ipcMain.handle("backend:Login", async () => {
     return true;
 });
 
+
+
 ipcMain.handle(
     "mangadex:Search",
     async (event, query: string | SearchQuery) => {
@@ -87,8 +94,20 @@ ipcMain.handle(
 );
 
 ipcMain.handle(
+    "mangadex:GetTags",
+    async(event) => {
+        return await client.tag.getTags();
+    }
+);
+
+ipcMain.handle(
     "mangadex:GetMangaChapters",
-    async (event, id: number) => {
-        return await client.manga.getMangaChapters(id);
+    async (event, id: number, filterByLanguage?: string) => {
+        const res = await client.manga.getMangaChapters(id);
+        if(filterByLanguage) {
+            res.chapters = res.chapters.filter(c => c.language === filterByLanguage);
+            res.groups = res.groups.filter(g => g.language === filterByLanguage);
+        }
+        return res;
     }
 );

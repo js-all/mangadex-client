@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 #background-cover-image {
     width: 100%;
     top: 0;
@@ -12,11 +14,6 @@
     transform: scale(1.1);
     filter: blur(2px);
     height: 150vh;
-}
-
-#dummy {
-    height: 100vh;
-    width: 10px;
 }
 
 @font-face {
@@ -47,7 +44,7 @@
     flex-direction: row;
     height: 50px;
     background-color: var(--main-bg-light);
-    color: white;
+    color: var(--text-color-primary);
     font-size: 17px;
     align-items: center;
     padding-left: 20px;
@@ -61,7 +58,10 @@
 * {
     --main-bg: #121212;
     --main-bg-light: #1b1b1b;
-    --accent-primary: rgb(180, 180, 180);
+    --accent-primary: rgb(255, 121, 59);
+    --text-color-primary: white;
+    --text-color-secondary: rgb(190, 190, 190);
+    --text-color-tertiary: rgb(140, 140, 140);
 }
 body {
     background-color: var(--main-bg);
@@ -71,9 +71,10 @@ body {
 }
 
 #paralax {
-    position: relative;
+    position: absolute;
+    top: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
     --perspective: 8;
@@ -91,19 +92,135 @@ body {
 }
 #paralax::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color:var(--main-bg-light);
+    background-color:var(--accent-primary);
     width: 5px;
+}
+
+#header-container {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    padding: 20px;
+    align-items: center;
+}
+
+.manga-info-item {
+    color: var(--text-color-secondary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vmin;
+}
+#description {
+    padding: 30px;
+    font-size: 3vmin;
+    color: var(--text-color-secondary);
+    text-overflow: ellipsis;
+    max-height: fit-content;
+    transition: all .3s;
+    height: fit-content;
+    min-height: 10vmin;
+}
+
+#description.closed {
+    color: transparent;
+    max-height: 20vmin;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--text-color-secondary) 50%, transparent 90%);
+    -webkit-background-clip: text;
+}
+
+.description-icons {
+    display: inline;
+    font-size: 1vmin;
+    position: relative;
+    top: -0.5vmin;
+}
+
+a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    background-image: linear-gradient(0deg, transparent 0%, var(--accent-primary) 0%, var(--accent-primary) 100%, transparent 100%);
+    background-position-y: 3.4vmin;
+    background-repeat: no-repeat;
+    transition: all .05s;
+}
+a:hover {
+    color: var(--text-color-primary);
+    background-position-y: 0vmin;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color-secondary);
+}
+
+@media (orientation: landscape) {
+    #header-container {
+        justify-content: space-around;
+        justify-items: center;
+    }
+}
+#cover-preview {
+    background-image: var(--bg-image);
+    width: 30vmin;
+    background-size: cover;
+    background-position: center;
+    height: 45vmin;
+    border-radius: 9px;
+    filter: drop-shadow(0 0 10px black);
+}
+
+#manga-info-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80%;
+    margin-right: 10vmin;
+    margin-left: 10vmin;
+}
+
+#manga-info-title {
+    font-weight: bold;
+    color:var(--text-color-primary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vmin;
+}
+#manga-info-more {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#manga-info-more div {
+    margin-right: 1vmin;
+}
+
+#manga-info-id {
+    color: var(--text-color-tertiary);
+    font-size: 2.7vmin;
+}
+
+#manga-info-more div:not(:last-child)::after {
+    content: " ";
+    font-family: "NerdFontsSymbols Nerd Font";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.5vmin;
+    position: relative;
+    top:-.5vmin;
+    left: .4vmin;
 }
 
 #foreground {
     padding-top: 50px;
     transform-origin: 0;
-    transform: translateZ(calc(var(--distance) * 1px))
-        scale(
-            calc(
-                calc(var(--perspective) - var(--distance)) / var(--perspective)
-            )
-        );
+    /*transform: translateZ(calc(var(--distance) * 1px)) scale(calc(calc(var(--perspective) - var(--distance)) / var(--perspective)));*/
+    transform: translateZ(3px) scale(0.625);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -115,4 +232,33 @@ body {
     width: 100%;
     height: 100%;
     transform: translateZ(0px);
+}
+
+#tags-wrapper {
+    padding: 30px;
+    padding-top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    margin-top: 10vmin;
+}
+
+.tag-container {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 2px solid var(--accent-primary);
+    border-radius: 3vmin;
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: var(--accent-primary);
+    font-size: 3vmin;
+    cursor: pointer;
+    transition: all 0.05s;
+}
+
+.tag-container:hover {
+    background-color: var(--accent-primary);
+    color:var(--text-color-primary);
 }
