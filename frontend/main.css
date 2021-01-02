@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 #background-cover-image {
-    width: 100%;
+    position: absolute;
     top: 0;
+    width: 100%;
     background-image: linear-gradient(
             0deg,
-            var(--main-bg) 20%,
+            #131313 0%,
             transparent 200%
         ),
         var(--bg-image);
     background-size: cover;
     background-position: center 10%;
     transform: scale(1.1);
-    filter: blur(2px);
-    height: 150vh;
+    filter: blur(5px);
+    height: 200vh;
+    scroll-behavior: smooth;
 }
 
 @font-face {
@@ -70,27 +72,24 @@ body {
     overflow: hidden;
 }
 
-#paralax {
+#wrapper {
     position: absolute;
     top: 0;
     width: 100%;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-    --perspective: 8;
-    --distance: 3;
-    perspective: calc(var(--perspective) * 1px);
-    perspective-origin: 0%;
     display: flex;
+    max-height: 100vh;
 }
-#paralax::-webkit-scrollbar-button{
+#wrapper::-webkit-scrollbar-button{
     background: transparent;
 }
-#paralax::-webkit-scrollbar {
+#wrapper::-webkit-scrollbar {
     background: transparent;
     width: 8px;
 }
-#paralax::-webkit-scrollbar-thumb {
+#wrapper::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color:var(--accent-primary);
     width: 5px;
@@ -116,10 +115,9 @@ body {
     font-size: 3vmin;
     color: var(--text-color-secondary);
     text-overflow: ellipsis;
-    max-height: fit-content;
     transition: all .3s;
-    height: fit-content;
-    min-height: 10vmin;
+    height: auto;
+    flex-grow: 2;
 }
 
 #description.closed {
@@ -219,8 +217,7 @@ body {
 #foreground {
     padding-top: 50px;
     transform-origin: 0;
-    /*transform: translateZ(calc(var(--distance) * 1px)) scale(calc(calc(var(--perspective) - var(--distance)) / var(--perspective)));*/
-    transform: translateZ(3px) scale(0.625);
+    transform: translateZ(1px) scale(1);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -234,14 +231,18 @@ body {
     transform: translateZ(0px);
 }
 
+.text-tertiary {
+    color: var(--text-color-tertiary);
+}
+
 #tags-wrapper {
     padding: 30px;
     padding-top: 0;
+    padding-bottom: 5px;
     display: flex;
     flex-direction: row;
     justify-content: start;
     flex-wrap: wrap;
-    margin-top: 10vmin;
 }
 
 .tag-container {
@@ -261,4 +262,42 @@ body {
 .tag-container:hover {
     background-color: var(--accent-primary);
     color:var(--text-color-primary);
+}
+
+#chapters-wrapper {
+    padding: 30px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chapter-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-left: solid .5vmin var(--accent-primary);
+    padding: 2vmin;
+    background-image: linear-gradient(90deg,var(--main-bg) -50%, transparent 25%);
+    background-repeat: no-repeat;
+    background-position-x: 0;
+    background-size: 100%;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.chapter-container:hover {
+    background-size: 200%;
+}
+
+.chapter-title {
+    font-size: 3vmin;
+}
+
+.chapter-info {
+    display: flex;
+    flex-direction: row ;
+    font-size: 2.5vmin;
+}
+
+.chapter-timestamp {
+    margin-right: 10px;
 }

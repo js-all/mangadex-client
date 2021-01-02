@@ -20,12 +20,12 @@ const mangaid = 48045;
     const chapters :PartialChapters = await ipcRenderer.invoke("mangadex:GetMangaChapters", mangaid, "gb");
     getEl("#manga-info-chapters").innerHTML = chapters.chapters.length + " chapters";
     const chaptersWrapper = getEl('#chapters-wrapper');
-    chapters.chapters.reverse().forEach((c, i) => {
+    chapters.chapters.forEach((c, i) => {
         const chapterDiv = document.createElement('div')
         chapterDiv.classList.add('chapter-container');
         const chapterTitle = document.createElement('div');
         chapterTitle.classList.add('chapter-title');
-        chapterTitle.innerHTML = `<span class="text-tertiary">${i} - </span>${c.title}`;
+        chapterTitle.innerHTML = `<span class="text-tertiary">ch.${Math.abs(i-chapters.chapters.length)} - </span>${c.title}`;
         const chapterInfo = document.createElement('div');
         chapterInfo.classList.add('chapter-info');
         const chapterTimestamp = document.createElement('div');
