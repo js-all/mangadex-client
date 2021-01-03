@@ -69,8 +69,19 @@ ipcMain.handle("backend:Login", async () => {
     loggedIn = true;
     return true;
 });
+ipcMain.handle(
+    "mangadex:GetChapter",
+    async (event, chapterid: number) => {
+        return await client.chapter.getChapter(chapterid);
+    }
+);
 
-
+ipcMain.handle(
+    "mangadex:GetGroup",
+    async (event, groupid: number) => {
+        return await client.group.getGroup(groupid);
+    }
+);
 
 ipcMain.handle(
     "mangadex:Search",

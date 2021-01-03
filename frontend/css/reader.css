@@ -1,0 +1,33 @@
+#page-wrapper {
+    width: 100%;
+    height: fit-content;
+    background-color: black;
+    margin-top: 50px;
+    overflow-x: hidden;
+}
+
+.webtoon .page, .vertical .page {
+    height: calc(100vh - 50px);
+    background-color: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top: var(--page-vertical-gap)
+}
+
+.horizontal {
+    /*then -100vw for each pages*/
+    left: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute;
+}
+
+.horizontal .page {
+    height: calc(100vh - 50px);
+    width: 100%;
+    background-color: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

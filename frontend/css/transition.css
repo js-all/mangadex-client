@@ -1,0 +1,40 @@
+#transition {
+    background-color: black;
+    position: absolute;
+    top: 0vh;
+    left: 100vw;
+    height: 100vh;
+    width: 100vw;
+    transition: 0.5s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.transition-loading-dot {
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, transparent 63%,var(--text-color-primary) 63%);
+    clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%, 50% 50%);
+    margin: 2vmin;
+    transform: scale(1);
+    position: relative;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-name: loading-dots;
+    animation-direction:    normal;
+    animation-fill-mode: backwards;
+    animation-timing-function: linear;
+    border-top: none ;
+}
+
+@keyframes loading-dots {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
