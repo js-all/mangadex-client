@@ -1,8 +1,18 @@
 import { transition } from "./utils";
 import {v4 as uuidV4} from 'uuid'
-let activeUI: UI | null = null;
 
+let activeUI: UI | null = null;
+let mousePos = {x: 0, y: 0};
 const wrapper = document.querySelector("#wrapper") as HTMLElement;
+
+wrapper.addEventListener("mousemove", e => {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+});
+
+function getMousePos() {
+    return mousePos;
+}
 
 function getActiveUI() {
     return activeUI;
@@ -61,5 +71,6 @@ export {
     getActiveUI,
     isUILoaded,
     loadUI,
+    getMousePos,
     wrapper
 };

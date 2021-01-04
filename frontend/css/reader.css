@@ -4,6 +4,7 @@
     background-color: black;
     margin-top: 50px;
     overflow-x: hidden;
+    padding: 0;
 }
 
 .webtoon .page, .vertical .page {
@@ -16,14 +17,17 @@
 }
 
 .horizontal {
-    /*then -100vw for each pages*/
-    left: 0;
+    --page: 0;
+    left: calc(var(--page) * calc( -100vw + 5px ));
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     position: absolute;
+    transition: 0.2s all;
 }
 
 .horizontal .page {
+    margin: 0;
+    padding: 0;
     height: calc(100vh - 50px);
     width: 100%;
     background-color: black;

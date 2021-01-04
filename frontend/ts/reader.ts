@@ -35,15 +35,20 @@ export default class UIReader extends UI {
             "#page-wrapper"
         ) as HTMLElement;
         const limitRatios: { ratio: number; element: HTMLElement }[] = [];
-        
+
         const resizeHandler = () => {
             const pageRatio =
                 (window.innerHeight - 50) /
                 pageWrapper.getBoundingClientRect().width;
-            pageWrapper.style.removeProperty('width');
-            limitRatios.forEach(v => v.element.style.removeProperty('height'));
-            if(this.readerMode === "horizontal") {
-                pageWrapper.style.width = pageWrapper.getBoundingClientRect().width * ch.pages.length + "px";
+            pageWrapper.style.removeProperty("width");
+            limitRatios.forEach((v) =>
+                v.element.style.removeProperty("height")
+            );
+            if (this.readerMode === "horizontal") {
+                pageWrapper.style.width =
+                    (wrapper.getBoundingClientRect().width - 5) *
+                        ch.pages.length +
+                    "px";
             } else {
                 limitRatios.forEach((v) => {
                     if (pageRatio > v.ratio || this.readerMode === "webtoon") {
@@ -56,6 +61,26 @@ export default class UIReader extends UI {
                 });
             }
         };
+        wrapper.addEventListener("click", (e) => {
+            const totalWidth = wrapper.getBoundingClientRect().width;
+            const actualPage = parseFloat(
+                pageWrapper.style.getPropertyValue("--page")
+            ) || 0;
+            // right
+            if (e.clientX > totalWidth / 2) {
+                if(actualPage >= ch.pages.length-1) return;
+                pageWrapper.style.setProperty(
+                    "--page",
+                    `${actualPage + 1}`
+                );
+                // left
+            } else if(actualPage >= 1) {
+                pageWrapper.style.setProperty(
+                    "--page",
+                    `${actualPage - 1}`
+                );
+            }
+        });
         this.toUpdate.push(resizeHandler, () => {
             while (pageWrapper.classList.length > 0) {
                 pageWrapper.classList.remove(
@@ -63,7 +88,10 @@ export default class UIReader extends UI {
                 );
             }
             pageWrapper.classList.add(this.readerMode);
-            pageWrapper.style.setProperty("--page-vertical-gap", `${this.readerMode === "webtoon" ? 0 : 5}px`);
+            pageWrapper.style.setProperty(
+                "--page-vertical-gap",
+                `${this.readerMode === "webtoon" ? 0 : 5}px`
+            );
         });
 
         ch.pages.forEach((p) => {
